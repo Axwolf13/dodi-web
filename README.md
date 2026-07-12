@@ -1,6 +1,8 @@
 # dodi-web: score a Terms of Service in your browser
 
-**Paste a ToS, get its DODI score.** The Digital Ownership Deception Index (0&ndash;100) measures how hard a document works to hide that "Buy now" means "revocable licence". Higher is more deceptive.
+**Paste a ToS, get its DODI score. Live at [dodi-web.onrender.com](https://dodi-web.onrender.com/).** The Digital Ownership Deception Index (0&ndash;100) measures how hard a document works to hide that "Buy now" means "revocable licence". Higher is more deceptive.
+
+The free tier sleeps when idle, so the first request after a quiet spell takes about 30 seconds to wake the service.
 
 This is the deployed companion to [dodi-analysis](https://github.com/Axwolf13/dodi-analysis), the study that scored ten platforms across a decade of ToS snapshots. Read the [write-up](https://axwolf13.github.io/writing/dodi/) for the findings and the validation against ToS;DR. The scorer here is byte-for-byte the same math: deterministic, no LLM, no API calls, nothing stored.
 
