@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+textstat
+pytest
+httpx
