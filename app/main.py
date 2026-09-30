@@ -12,7 +12,7 @@ app = FastAPI(
     title="DODI",
     description="Digital Ownership Deception Index: score how hard a Terms of "
     "Service works to hide that 'Buy now' means 'revocable licence'.",
-    version="1.0.0",
+    version="1.1.0",
 )
 analyzer = DODIAnalyzer()
 static_dir = Path(__file__).resolve().parent.parent / "static"

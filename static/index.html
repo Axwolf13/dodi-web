@@ -24,6 +24,10 @@ h1{font-size:1.6rem;line-height:1.25;margin-bottom:.5rem}
 textarea{width:100%;min-height:220px;padding:.8rem;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:14px/1.5 ui-monospace,Consolas,monospace;resize:vertical}
 textarea:focus{outline:2px solid var(--fill);outline-offset:1px;border-color:transparent}
 button{margin-top:.75rem;padding:.6rem 1.4rem;border:none;border-radius:8px;background:var(--fill);color:var(--bg);font:600 15px system-ui,sans-serif;cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.actions button{margin-top:0}
+button.ghost{background:none;color:var(--ink);border:1px solid var(--line);font-weight:500}
+button.ghost:hover{border-color:var(--fill)}
 button:disabled{opacity:.55;cursor:wait}
 .error{color:#B4232A;margin-top:.75rem;display:none}
 @media (prefers-color-scheme: dark){ .error{color:#F2A9AD} }
@@ -42,6 +46,10 @@ button:disabled{opacity:.55;cursor:wait}
 .scale{margin-top:.6rem;color:var(--muted);font-size:.85rem}
 footer{margin-top:2.5rem;color:var(--muted);font-size:.85rem}
 footer a{color:inherit}
+@media (max-width:480px){
+  .meter{grid-template-columns:1fr 3.2rem;gap:.3rem .75rem}
+  .meter .name{grid-column:1/-1}
+}
 </style>
 </head>
 <body>
@@ -51,7 +59,10 @@ footer a{color:inherit}
 
   <label for="tos" class="score-label">Document text</label>
   <textarea id="tos" placeholder="Paste the full Terms of Service here..." spellcheck="false"></textarea>
-  <button id="go" type="button">Score it</button>
+  <div class="actions">
+    <button id="go" type="button">Score it</button>
+    <button id="sample" type="button" class="ghost">Load a made-up sample</button>
+  </div>
   <p class="error" id="error"></p>
 
   <section id="result" aria-live="polite">
@@ -77,18 +88,35 @@ footer a{color:inherit}
     </div>
 
     <div class="details" id="details"></div>
-    <div class="scale">For scale: GOG (the DRM-free store) scored 25.9 in 2015. The 2024 mean across ten major platforms was 77.3.</div>
+    <div class="scale">For scale: GOG, the DRM-free store, scored 27.4 in 2015 and 47.7 in 2024. The 2024 mean across ten major platforms was 81.7.</div>
   </section>
 
   <footer>
     Built from the study behind <a href="https://axwolf13.github.io/writing/dodi/">this write-up</a>.
     Methodology and corpus: <a href="https://github.com/Axwolf13/dodi-analysis">dodi-analysis</a>.
     The score measures language, not legal substance.
+    Scorer v1.1: whole-word matching since September 2026 (<a href="https://github.com/Axwolf13/dodi-analysis#corrections-september-2026">corrections</a>).
   </footer>
 </main>
 
 <script>
 const btn = document.getElementById('go');
+// Fictional, written for this demo: licence-heavy terms with a few red-flag clauses
+const SAMPLE = `StreamBox Terms of Use (a made-up service, written for this demo)
+
+1. Licence. Subject to these terms, StreamBox grants you a limited, non-exclusive, non-transferable, revocable licence to access and view licensed content through your subscription. Content is licensed, not sold. Titles you rent or purchase through the service are licensed to you on the same terms.
+
+2. Availability. We may modify, suspend or remove any content or feature at any time at our sole discretion, including content you have paid for, without notice or liability to you. Licences from content providers may expire and access ends when they do.
+
+3. Termination. We may suspend or terminate your subscription or access at any time for any reason. On termination all licences granted to you end immediately.
+
+4. Restrictions. You may not copy, sublicense, resell, lend or transfer content or your access to it. Content providers may attach additional licence terms, which also apply to you.
+
+5. Changes. We may amend these terms at any time. Continued use of the service means you accept the amended terms.`;
+document.getElementById('sample').addEventListener('click', () => {
+  document.getElementById('tos').value = SAMPLE;
+  btn.click();
+});
 const errEl = document.getElementById('error');
 
 function setMeter(id, value){
