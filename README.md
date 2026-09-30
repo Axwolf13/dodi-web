@@ -4,7 +4,7 @@
 
 The free tier sleeps when idle, so the first request after a quiet spell takes about 30 seconds to wake the service.
 
-This is the deployed companion to [dodi-analysis](https://github.com/Axwolf13/dodi-analysis), the study that scored ten platforms across a decade of ToS snapshots. Read the [write-up](https://axwolf13.github.io/writing/dodi/) for the findings and the validation against ToS;DR. The scorer here is the same math as DODI v1.1: deterministic, no LLM, no API calls, nothing stored. It counts whole words and their genuine forms; v1.0 counted substrings, which the September 2026 audit found and fixed.
+This is the deployed companion to [dodi-analysis](https://github.com/Axwolf13/dodi-analysis), the study that scored ten platforms across a decade of ToS snapshots. Read the [write-up](https://axwolf13.github.io/writing/dodi/) for the findings and the validation against ToS;DR. The scorer here is the same math as DODI v1.1: deterministic, no LLM, no API calls, nothing stored. It counts whole words and their genuine forms (v1.1, September 2026).
 
 ```
 DODI = 0.25 x readability penalty + 0.50 x licence ratio + 0.25 x red-flag score
