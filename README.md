@@ -4,7 +4,7 @@
 
 The free tier sleeps when idle, so the first request after a quiet spell takes about 30 seconds to wake the service.
 
-This is the deployed companion to [dodi-analysis](https://github.com/Axwolf13/dodi-analysis), the study that scored ten platforms across a decade of ToS snapshots. Read the [write-up](https://axwolf13.github.io/writing/dodi/) for the findings and the validation against ToS;DR. The scorer here is byte-for-byte the same math: deterministic, no LLM, no API calls, nothing stored.
+This is the deployed companion to [dodi-analysis](https://github.com/Axwolf13/dodi-analysis), the study that scored ten platforms across a decade of ToS snapshots. Read the [write-up](https://axwolf13.github.io/writing/dodi/) for the findings and the validation against ToS;DR. The scorer here is the same math as DODI v1.1: deterministic, no LLM, no API calls, nothing stored. It counts whole words and their genuine forms; v1.0 counted substrings, which the September 2026 audit found and fixed.
 
 ```
 DODI = 0.25 x readability penalty + 0.50 x licence ratio + 0.25 x red-flag score
@@ -46,7 +46,7 @@ Response: the total score, the three weighted components (licence ratio, readabi
 pytest
 ```
 
-Covers the scorer (determinism, weighting, bounds, the zero-ownership edge case) and the API (validation, error paths). CI runs the suite on every push via GitHub Actions.
+Covers the scorer (determinism, weighting, bounds, the zero-ownership edge case and the counting cases that broke v1.0, such as "download" and "different") and the API (validation, error paths). CI runs the suite on every push via GitHub Actions.
 
 ## Honest limitations
 

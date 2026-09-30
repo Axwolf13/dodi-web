@@ -44,3 +44,26 @@ def test_score_bounds():
     for text in (LICENCE_HEAVY, OWNERSHIP_FRIENDLY, "word"):
         score = analyzer.analyze(text)["dodi_score"]
         assert 0 <= score <= 100
+
+
+def test_download_is_not_ownership_language():
+    # v1.0 counted "own" inside "download", "known" and "takedown"
+    r = analyzer.analyze("You may download the app. It is well known. Takedown notices apply.")
+    assert r["details"]["ownership_count"] == 0
+
+
+def test_different_and_parent_are_not_rent():
+    # v1.0 counted "rent" inside "different", "parent" and "current"
+    r = analyzer.analyze("A different parent account. The current version. You may rent a film.")
+    assert r["details"]["license_count"] == 1
+
+
+def test_british_licence_counts():
+    r = analyzer.analyze("We grant you a licence. Licences are personal. This service is licensed.")
+    # licence, Licences, licensed, grant, service
+    assert r["details"]["license_count"] == 5
+
+
+def test_substring_mode_reproduces_v1_0():
+    old = DODIAnalyzer(matching="substring")
+    assert old.analyze("download")["details"]["ownership_count"] == 1
